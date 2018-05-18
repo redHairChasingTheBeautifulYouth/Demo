@@ -11,7 +11,7 @@ public class Colleators {
 
     static {
         User user1 = new User(1 ,"a");
-        User user11= new User(2 ,"a");
+        User user11= new User(1 ,"d");
         User user2 = new User(3 ,"b");
         User user3 = new User(4 ,"c");
 
@@ -22,21 +22,23 @@ public class Colleators {
     }
 
     public static void main(String[] args){
-        toMapTest();
+        groupbyTest();
         System.out.println("");
     }
 
-    //groupingBy------------它创建了一个映射，其中TaskType是它的键，而包含了所有拥有相同TaskType的任务的列表是它的值
+    //groupingBy分类聚集器------------它创建了一个映射，其中TaskType是它的键，而包含了所有拥有相同TaskType的任务的列表是它的值
     public static void groupbyTest(){
         Map<String ,List<User>> map = list.stream().collect(Collectors.groupingBy(user -> user.getName()));
         for (Map.Entry<String, List<User>> entry : map.entrySet()) {
             System.out.println(String.format("%s =>> %s", entry.getKey(), entry.getValue()));
         }
-
     }
 
 
+
     //toList-------将数据收集进一个列表List
+
+
     public static void toListTest() {
         List<String> newList = list.stream().map(user -> user.getName()).collect(Collectors.toList());
 
@@ -69,6 +71,9 @@ public class Colleators {
             System.out.println(String.format("%s =>> %s", entry.getKey(), entry.getValue()));
         }
         System.out.println("");
+
+
+
     }
 
 

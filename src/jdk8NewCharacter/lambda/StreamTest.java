@@ -129,4 +129,7 @@ public class StreamTest {
         ////toMap()要求传入2个Function实例,  如果用自身做key  则直接使用Function.<String>identity(),  用长度做value;
         Map<String ,Integer> map = list.stream().collect(Collectors.toMap(Function.<String>identity(), item -> item.length()));
     }
+
+
+
 }
