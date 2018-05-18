@@ -15,12 +15,20 @@ package jdk8NewCharacter.lambda;
  *
  */
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class StreamTest {
+
+
+    public static void main(String[] args){
+        testMap();
+    }
 
     /**
      * 创建流
@@ -41,5 +49,84 @@ public class StreamTest {
     public void testMapMethod(){
         List<String> list = Arrays.asList("hello", "world", "helloworld");
         List<String> collect = list.stream().map(s -> s.toUpperCase()).collect(Collectors.toList());
+    }
+
+    //排序sort()
+    public static void testSort(){
+        List<String> list = new ArrayList<>();
+
+        list.add("a");
+
+        list.add("ab");
+
+        list.add("abc");
+
+        list.add("b");
+
+        list.add("bc");
+
+        //sort里要求传入一个 实现了Comparator 接口实例
+        list.sort( (a, b) -> a.length() - b.length());
+
+        System.out.println(list);
+
+    }
+
+    // filter()的懒加载机制决定了 ，它不会对流做任何处理, 它的实际动作的取决于后续操作.
+    public static void testFilter(){
+        List<String> list = new ArrayList<>();
+
+        list.add("A");
+
+        list.add("Ab");
+
+        list.add("abc");
+
+        list.add("b");
+
+        list.add("bc");
+
+        List<String> newList = list.stream().filter(n -> n.length()>2).collect(Collectors.toList());;
+
+        System.out.println(newList);
+    }
+
+    // 它可以把一种stream映射为另外一种
+    public static void testMap(){
+        List<String> list = new ArrayList<>();
+
+        list.add("a");
+
+        list.add("ab");
+
+        list.add("abc");
+
+        list.add("b");
+
+        list.add("bc");
+
+        List<String> newList = list.stream().map(n -> n.toLowerCase()).collect(Collectors.toList());
+
+        System.out.println(newList);
+    }
+
+    //聚合
+    public static void testJuHe(){
+        List<String> list = new ArrayList<>();
+
+        list.add("a");
+
+        list.add("ab");
+
+        list.add("abc");
+
+        list.add("b");
+
+        list.add("bc");
+
+        List<String> newList = list.stream().map(n -> n.toLowerCase()).collect(Collectors.toList());
+
+        ////toMap()要求传入2个Function实例,  如果用自身做key  则直接使用Function.<String>identity(),  用长度做value;
+        Map<String ,Integer> map = list.stream().collect(Collectors.toMap(Function.<String>identity(), item -> item.length()));
     }
 }
